@@ -28,7 +28,6 @@ void Queue<T>::enqueue(T item) {
         resize(capacity * 1.5);
         // throw overflow_error("queue is full");
     tail = (tail + 1) % capacity;
-    cout << "enqueue tail: " << tail << endl;
     list[tail] = item;
     size++;
 };
@@ -64,27 +63,17 @@ bool Queue<T>::isFull(){
 
 template<typename T>
 void Queue<T>::resize(unsigned int newCapacity){
-    cout << "resizing " << newCapacity << endl;
+    if (newCapacity == 0)
+        newCapacity = 1;
     T* newList = new T[newCapacity]();
-    tail = size - 1;
-    head = 0;
     for (int i = 0; i < size; ++i)
     {
-        newList[i] = list[(i + head) % newCapacity];
+        newList[i] = list[(i+head) % capacity];
     }
+    tail = size - 1;
+    head = 0;
     delete[] list;
     list = newList;
     this->capacity = newCapacity;
-    display();
-};
-template<typename T>
-void Queue<T>::display() {
-    cout << "displaying... head: " << head << " tail: " << tail << " size: " << size << endl;
-    for (int i = 0; i < size; ++i)
-    {
-        int location = ((i + head) % capacity);
-        cout << location << ". val: " << list[location] << endl;
-        /* code */
-    }
 };
 

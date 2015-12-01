@@ -18,5 +18,4 @@ public:
     virtual bool isEmpty();
     virtual bool isFull();
     virtual unsigned int count();
-    virtual void display();
 };
